@@ -17,8 +17,8 @@ steps:
     settings:
       host: feveile-hauge.dk
       username: root
-      password:
-        from_secret: ssh_password
+      key:
+        from_secret: metis_key
       port: 22
       script:
       - docker pull danielhauge/metis-copy:latest
