@@ -16,4 +16,5 @@ COPY --from=build-stage /go/files /go/files
 # COPY --from=build-stage /go/TestCerts /go
 EXPOSE 443
 EXPOSE 80
+EXPOSE 8443
 ENTRYPOINt ["./go"]
