@@ -9,7 +9,7 @@ html, body{
     height:100%;
     padding:0px;
     margin:0px;
-    overflow: hidden;
+    overflow: -moz-scrollbars-vertical;
     background: #191d1e; /* Old browsers */
     background: -moz-linear-gradient(0deg,  #191d1e 50%, #283139 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#191d1e), color-stop(100%,#283139)); /* Chrome,Safari4+ */
@@ -72,7 +72,6 @@ textarea {
     margin-left: 50px;
     width: 800px;
     height: 300px;
-    overflow: auto;
     resize: both;
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
