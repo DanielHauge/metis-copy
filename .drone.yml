@@ -26,6 +26,10 @@ steps:
       - docker service update --image danielhauge/metis-copy:latest copy
   - name: discord notification
     image: appleboy/drone-discord
+    when:
+      status:
+        - failure
+        - success
     settings:
       webhook_id: 
         from_secret: discord_webhook_id
