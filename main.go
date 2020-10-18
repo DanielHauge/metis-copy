@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	gosocketio "github.com/graarh/golang-socketio"
 	"github.com/graarh/golang-socketio/transport"
 	"log"
@@ -34,8 +35,12 @@ func runServer(){
 		return "OK"
 	})
 
+
 	http.Handle("/socket.io/", server)
 	http.Handle("/", http.FileServer(http.Dir("./files")))
+	http.HandleFunc("/cp", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "%s", Copy)
+	})
 	log.Println("Serving at localhost:80...")
 	log.Fatal(http.ListenAndServe(":80", nil))
 
