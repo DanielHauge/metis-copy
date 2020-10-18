@@ -1,0 +1,44 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: build  
+    image: plugins/docker
+    settings:
+      registry: docker.io
+      repo: danielhauge/metis-copy
+      username: 
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+
+  - name: deploy
+    image: appleboy/drone-ssh
+    settings:
+      host: feveile-hauge.dk
+      username: root
+      key:
+        from_secret: metis_key
+      port: 22
+      script:
+      - docker pull danielhauge/metis-copy:latest
+      - docker service update --image danielhauge/metis-copy:latest copy
+  - name: discord notification
+    image: appleboy/drone-discord
+    settings:
+      webhook_id: 
+        from_secret: discord_webhook_id
+      webhook_token: 
+        from_secret: discord_webhook_token
+      message: >
+             {{#success build.status}}
+               Showcase build: {{build.number}} succeeded. Good job. {{build.commit}}
+             {{else}}
+               Showcase build {{build.number}} failed. Fix me please. {{build.commit}}
+             {{/success}}
+
+
+
+trigger:
+  branch:
+  - master
