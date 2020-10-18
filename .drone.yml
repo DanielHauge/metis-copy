@@ -17,8 +17,9 @@ steps:
     settings:
       host: feveile-hauge.dk
       username: root
-      key:
-        from_secret: metis_key
+      volumes:
+        - /root:/root/ssh/drone_rsa
+      key_path: /root/ssh/drone_rsa
       port: 22
       script:
       - docker pull danielhauge/metis-copy:latest
@@ -36,8 +37,6 @@ steps:
              {{else}}
                Showcase build {{build.number}} failed. Fix me please. {{build.commit}}
              {{/success}}
-
-
 
 trigger:
   branch:
