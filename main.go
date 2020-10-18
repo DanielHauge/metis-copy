@@ -39,8 +39,13 @@ func runServer(){
 	http.Handle("/socket.io/", server)
 	http.Handle("/", http.FileServer(http.Dir("./files")))
 	http.HandleFunc("/cp", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "%s", Copy)
+		switch r.Method {
+		case "GET":	fmt.Fprintf(w, "%s", Copy)
+		case "POST":
+			Copy =  r.RequestURI[4:]
+		}
 	})
+
 	log.Println("Serving at localhost:80...")
 	log.Fatal(http.ListenAndServe(":80", nil))
 
