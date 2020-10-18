@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
-	socketio "github.com/googollee/go-socket.io"
+	gosocketio "github.com/graarh/golang-socketio"
+	"github.com/graarh/golang-socketio/transport"
 	"log"
 	"net/http"
 )
@@ -13,32 +13,30 @@ func main() {
 }
 
 var Copy string
+var Connections int
 
 func runServer(){
-	server := socketio.NewServer(nil)
-	server.OnConnect("/", func(s socketio.Conn) error {
-		s.SetContext("")
-		fmt.Println("connected:", s.ID())
-		return nil
+	server := gosocketio.NewServer(transport.GetDefaultWebsocketTransport())
+
+	server.On(gosocketio.OnConnection, func(c *gosocketio.Channel) {
+		c.Emit("new-copy", Copy)
+		c.Join("copy")
+		c.BroadcastTo("copy","new-count", 	server.Amount("copy"))
 	})
 
-	server.OnEvent("/", "new-value", func(s socketio.Conn, msg string) {
-		fmt.Println("update:", msg)
+	server.On(gosocketio.OnDisconnection, func(c *gosocketio.Channel) {
+		c.BroadcastTo("copy", "new-count", server.Amount("copy"))
+	})
+
+	server.On("update", func(c *gosocketio.Channel, msg string) string {
 		Copy = msg
-		s.Emit("update", "have "+msg)
+		c.BroadcastTo("copy", "new-copy", Copy)
+		return "OK"
 	})
-
-
-	server.OnError("/", func(s socketio.Conn, e error) {
-		fmt.Println("meet error:", e)
-	})
-
-	go server.Serve()
-	defer server.Close()
 
 	http.Handle("/socket.io/", server)
 	http.Handle("/", http.FileServer(http.Dir("./files")))
-	log.Println("Serving at localhost:8000...")
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Println("Serving at localhost:80...")
+	log.Fatal(http.ListenAndServe(":80", nil))
 
 }

@@ -1,93 +1,136 @@
-body {
-    margin: 30px 0px 0px 0px;
-    padding: 0;
-    background: #000000;
-    text-align: justify;
-    font-family:  Tahoma, Arial, Helvetica, sans-serif;
-    font-size: 11px;
-    color: #FFFFFF;
+/*
+Credits: Dimitra Vasilopoulou
+https://bashooka.com/coding/web-background-animation-effects/
+https://codepen.io/mimikos/pen/wKqyqY
+*/
+
+html, body{
+    width:100%;
+    height:100%;
+    padding:0px;
+    margin:0px;
+    overflow: hidden;
+    background: #191d1e; /* Old browsers */
+    background: -moz-linear-gradient(0deg,  #191d1e 50%, #283139 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,#191d1e), color-stop(100%,#283139)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(0deg,  #191d1e 50%,#283139 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(0deg,  #191d1e 50%,#283139 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(0deg,  #191d1e 50%,#283139 100%); /* IE10+ */
+    background: linear-gradient(0deg,  #191d1e 50%,#283139 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#191d1e', endColorstr='#283139',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background-attachment: fixed
 }
 
-h1 {
-    font-size: 1.6em;
-    font-weight: normal;
-    margin-top: 0;
+#projector {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width:100%;
+    height:100%;
+}
+
+.center-div {
+    width:580px;
+    height:374px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin-left: -290px;
+    margin-top:  -187px;
+}
+
+#preloaderDiv
+{
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin-left: -27px;
+    margin-top:  -27px;
+}
+
+#logo{
+    opacity:0;
+    filter: alpha(opacity=0);
+}
+
+#date2014
+{
+    position:absolute;
+    padding-left: 210px;
+    padding-top:15px;
+    opacity:0;
+    top:303px;
+    left:0;
+    filter: alpha(opacity=0);
+}
+
+/* End credit */
+
+
+textarea {
+    margin-top: 10px;
+    margin-left: 50px;
+    width: 800px;
+    height: 300px;
+    overflow: auto;
+    resize: both;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07);
+    border-color: -moz-use-text-color #FFFFFF #FFFFFF -moz-use-text-color;
+    border-image: none;
+    border-radius: 6px 6px 6px 6px;
+    border-style: none solid solid none;
+    border-width: medium 1px 1px medium;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+    color: lightgrey;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1em;
+    line-height: 1.4em;
+    padding: 5px 8px;
+    transition: background-color 0.2s ease 0s;
+}
+
+.field{
+    resize: both;
 }
 
 
-
-#header {
-    width: 960px;
-    margin: 0 auto;
+textarea:focus {
+    background: none repeat scroll 0 0 #191d1e;
+    outline-width: 0;
 }
 
-/* Header */
-#end {
-    background: url(images/img04.jpg) no-repeat left top
+.infront {
+    position: relative;
 }
 
-#logo {
-    width: 960px;
-    height: 191px;
-    margin: 0 auto;
-    background: url(images/img02.jpg) no-repeat left top;
+.counter{
+    color: lightgrey;
+    font-size: smaller;
+
 }
 
-#menu {
-    width: 960px;
-    margin: 0 auto;
-    height: 55px;
-    padding-top: 35px;
-    background: url(images/img01.jpg) repeat-x left top;
+.counter-anim{
+    animation: counter-pop 0.4s ease-in-out;
+    animation-delay: 0s;
 }
 
-#menu h1{
-    text-align: center;
-    font-size: 24px;
-    text-transform: uppercase;
-    font-weight: bold;
+.clipboard-anim{
+    animation: clipboard-pop 0.1s ease-in-out;
+    animation-delay: 0s;
 }
 
-/* Wrapper */
-
-#submit {
-    font-size: 20px;
+@keyframes clipboard-pop {
+    50%  {
+        transform: scale(1.1);
+    }
 }
 
-#field {
-    width: 80%;
-    font-size: 35px;
-    text-align: center;
-}
-
-#file {
-    padding-top: 25px;
-    font-size: 20px;
-}
-
-#wrapper {
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
-}
-
-.end {
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-}
-
-#page {
-    width: 960px;
-    margin: 0 auto;
-    padding: 0px;
-    background: url(images/img03.jpg) no-repeat left top;
-    text-align: center;
-    align-items: center;
-}
-
-#content {
-    float: initial;
-    align-self: center;
-    margin: 0px 20px 20px 20px;
-    padding-top: 65px;
+@keyframes counter-pop {
+    50%  {
+        transform: scale(1.25);
+    }
 }
