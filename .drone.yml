@@ -17,9 +17,8 @@ steps:
     settings:
       host: feveile-hauge.dk
       username: root
-      volumes:
-        - /root/id_rsa:/root/ssh/drone_rsa
-      key_path: /root/ssh/drone_rsa
+      password:
+        from_secret: ssh_password
       port: 22
       script:
       - docker pull danielhauge/metis-copy:latest
