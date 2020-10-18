@@ -18,7 +18,7 @@ steps:
       host: feveile-hauge.dk
       username: root
       volumes:
-        - /root:/root/ssh/drone_rsa
+        - /root/id_rsa:/root/ssh/drone_rsa
       key_path: /root/ssh/drone_rsa
       port: 22
       script:
